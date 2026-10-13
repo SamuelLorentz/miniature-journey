@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conway’s Game of Life</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main>
+    <h1>Conway’s Game of Life</h1>
+    <p class="muted">Upload a grid to watch it evolve in the browser.</p>
+    <section class="controls" aria-label="Simulation controls">
+      <label>Grid file <input id="file" type="file" accept=".txt,text/plain"></label>
+      <button id="play" type="button">Play</button>
+      <label>Speed <input id="speed" type="range" min="50" max="1000" step="50" value="300"> <span id="speed-value">300 ms</span></label>
+      <label><input id="wrap" type="checkbox"> Wrap edges</label>
+    </section>
+    <p id="status" class="status" role="status">Generation 0</p>
+    <canvas id="canvas" aria-label="Game of Life grid"></canvas>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

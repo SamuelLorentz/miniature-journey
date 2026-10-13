@@ -1,6 +1,22 @@
 package input
 
-import "testing"
+import (
+	"conways/life"
+	"reflect"
+	"strings"
+	"testing"
+)
+
+func TestParseGridReader(t *testing.T) {
+	want := life.Grid{{1, 0}, {0, 1}}
+	got, err := ParseGrid(strings.NewReader("2 2\n#.\n.#\n"))
+	if err != nil {
+		t.Fatalf("ParseGrid returned error: %v", err)
+	}
+	if !reflect.DeepEqual(got, want) {
+		t.Fatalf("ParseGrid = %v; want %v", got, want)
+	}
+}
 
 func TestReadGridBadInputs(t *testing.T) {
 	tests := []struct {

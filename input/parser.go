@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"conways/life"
 	"fmt"
+	"io"
 	"os"
 	"strconv"
 	"strings"
@@ -16,7 +17,18 @@ func ReadGrid(path string) (life.Grid, error) {
 	}
 	defer file.Close()
 
-	scanner := bufio.NewScanner(file)
+	return ParseGrid(file, path)
+}
+
+// ParseGrid reads and validates a grid from r. The source name is included in
+// errors that refer to the grid itself, which keeps file and uploaded input
+// errors useful to callers.
+func ParseGrid(r io.Reader, sourceNames ...string) (life.Grid, error) {
+	source := "grid"
+	if len(sourceNames) > 0 {
+		source = sourceNames[0]
+	}
+	scanner := bufio.NewScanner(r)
 	if !scanner.Scan() {
 		if err := scanner.Err(); err != nil {
 			return nil, fmt.Errorf("read grid header: %w", err)
@@ -41,7 +53,7 @@ func ReadGrid(path string) (life.Grid, error) {
 
 	grid, err := life.NewGrid(height, width)
 	if err != nil {
-		return nil, fmt.Errorf("new grid from %q: %w", path, err)
+		return nil, fmt.Errorf("new grid from %q: %w", source, err)
 	}
 
 	for row := range height {

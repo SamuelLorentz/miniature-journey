@@ -43,6 +43,19 @@ go run ./cmd/life --generations 4 testdata/t3_glider.txt
 go run ./cmd/life --wrap --generations 1 testdata/t4_wrap.txt
 ```
 
+## Running the browser viewer
+
+Run the local viewer with:
+
+```sh
+go run ./cmd/life-web
+```
+
+It prints a local URL (by default `http://127.0.0.1:8080/`). The viewer
+starts with a bundled sample, and can load any valid grid file, play or pause
+generations, change playback speed, and toggle toroidal wrapping. Use
+`-address` to choose a different local listen address.
+
 The terminal view displays each generation as it runs. The simulator also
 stops early when the same state has appeared three times.
 
@@ -76,6 +89,7 @@ The parser requires:
 life/              Grid representation and simulation rules
 input/             Grid-file parsing
 cmd/life/          Command-line application
+cmd/life-web/      Local browser viewer and HTTP API
 cmd/gen-testdata/  Test-data generator
 testdata/          Example grids and expected generations
 ```
